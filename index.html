@@ -1,0 +1,780 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="description" content="Feilian Huang is an AI software engineer and independent researcher working across engineering systems, AI evaluation, and maritime history." />
+  <link rel="icon" href="data:," />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,650&display=swap" rel="stylesheet">
+  <title>Feilian Huang</title>
+  <style>
+    :root {
+      --bg: #f5f4ef;
+      --paper: #fbfaf6;
+      --ink: #171918;
+      --muted: #555c58;
+      --line: #cfd1ca;
+      --line-strong: #9da39e;
+      --accent: #b73024;
+      --accent-soft: #f0d8d2;
+      --wash: #e8ebe5;
+      --shadow: rgba(24, 28, 25, .08);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #141615;
+        --paper: #1b1e1c;
+        --ink: #f0f1ec;
+        --muted: #b1b7b2;
+        --line: #383d39;
+        --line-strong: #69706b;
+        --accent: #ef7d6f;
+        --accent-soft: #432722;
+        --wash: #242925;
+        --shadow: rgba(0,0,0,.28);
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "IBM Plex Sans", sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    button { font: inherit; }
+    .wrap { width: min(1160px, calc(100% - 48px)); margin: 0 auto; }
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: color-mix(in srgb, var(--bg) 91%, transparent);
+      backdrop-filter: blur(12px);
+    }
+    .nav-inner {
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .nav-mark {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a {
+      position: relative;
+      padding: 18px 0 16px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+    }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      bottom: -1px;
+      left: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+    }
+    .nav-links a:hover,
+    .nav-links a:focus-visible,
+    .nav-links a[aria-current="page"] { color: var(--ink); }
+    .nav-links a[aria-current="page"]::after { transform: scaleX(1); }
+    .page[hidden] { display: none; }
+    .page-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(260px, .6fr);
+      gap: 72px;
+      align-items: end;
+      padding: 88px 0 60px;
+      border-bottom: 1px solid var(--line);
+    }
+    .eyebrow {
+      margin-bottom: 23px;
+      color: var(--accent);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      letter-spacing: .035em;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      margin-bottom: 22px;
+      font-family: "Source Serif 4", serif;
+      font-size: clamp(50px, 7vw, 92px);
+      font-weight: 650;
+      letter-spacing: -.055em;
+      line-height: .96;
+    }
+    .page-lede {
+      max-width: 790px;
+      margin: 0;
+      font-family: "Source Serif 4", serif;
+      font-size: clamp(21px, 2.2vw, 30px);
+      letter-spacing: -.015em;
+      line-height: 1.42;
+    }
+    .page-aside {
+      padding-left: 24px;
+      border-left: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .page-aside p:last-child { margin-bottom: 0; }
+    .home-hero {
+      min-height: 670px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(280px, .55fr);
+      gap: 70px;
+      align-items: end;
+      padding: 100px 0 78px;
+      border-bottom: 1px solid var(--line);
+    }
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 30px;
+      color: var(--muted);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+    }
+    .status::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-soft);
+    }
+    .home-hero h1 { font-size: clamp(56px, 8.5vw, 108px); }
+    .role-line {
+      margin-bottom: 22px;
+      color: var(--accent);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: clamp(15px, 1.7vw, 20px);
+    }
+    .hero-aside {
+      align-self: stretch;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-left: 24px;
+      border-left: 1px solid var(--line);
+    }
+    .hero-aside p { margin-bottom: 18px; color: var(--muted); }
+    .hero-aside strong { display: block; color: var(--ink); font-size: 14px; }
+    .contact-row, .link-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+    .button, .text-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 9px 14px;
+      border: 1px solid var(--line-strong);
+      border-radius: 4px;
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .button:hover, .button:focus-visible, .text-link:hover, .text-link:focus-visible {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .button.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+    .button.primary:hover, .button.primary:focus-visible { background: var(--accent); border-color: var(--accent); color: white; }
+    .home-choices {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--line);
+    }
+    .choice {
+      display: block;
+      min-height: 290px;
+      padding: 54px 9vw 54px max(24px, calc((100vw - min(1160px, calc(100vw - 48px))) / 2));
+      text-decoration: none;
+    }
+    .choice + .choice {
+      padding-right: max(24px, calc((100vw - min(1160px, calc(100vw - 48px))) / 2));
+      padding-left: 9vw;
+      border-left: 1px solid var(--line);
+    }
+    .choice span {
+      display: block;
+      margin-bottom: 16px;
+      color: var(--accent);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+    }
+    .choice h2 {
+      margin-bottom: 14px;
+      font-family: "Source Serif 4", serif;
+      font-size: clamp(36px, 4vw, 54px);
+      font-weight: 600;
+      letter-spacing: -.035em;
+      line-height: 1.05;
+    }
+    .choice p { max-width: 540px; margin: 0; color: var(--muted); }
+    .choice:hover { background: var(--paper); }
+    .choice:hover h2 { color: var(--accent); }
+    .content-grid {
+      display: grid;
+      grid-template-columns: 200px minmax(0, 1fr);
+      gap: 64px;
+      padding: 72px 0 92px;
+    }
+    .side-index {
+      position: sticky;
+      top: 90px;
+      align-self: start;
+    }
+    .side-index a {
+      display: block;
+      padding: 8px 0;
+      color: var(--muted);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      text-decoration: none;
+    }
+    .side-index a:hover, .side-index a:focus-visible { color: var(--accent); }
+    .content-section, .research-group { scroll-margin-top: 76px; }
+    .content-section + .content-section { margin-top: 84px; }
+    .section-title {
+      margin-bottom: 30px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line-strong);
+      font-family: "Source Serif 4", serif;
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 600;
+      letter-spacing: -.035em;
+      line-height: 1.08;
+    }
+    .timeline { border-top: 1px solid var(--line-strong); }
+    .timeline-entry {
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr);
+      gap: 34px;
+      padding: 30px 0 34px;
+      border-bottom: 1px solid var(--line);
+    }
+    .timeline-date {
+      color: var(--accent);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+    }
+    .timeline-entry h3 { margin-bottom: 3px; font-size: 21px; line-height: 1.25; }
+    .organization { margin-bottom: 15px; color: var(--muted); font-size: 14px; }
+    .detail-list { margin: 0; padding-left: 20px; color: var(--muted); }
+    .detail-list li + li { margin-top: 10px; }
+    .education-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .education-card {
+      padding: 28px;
+      border-top: 3px solid var(--accent);
+      background: var(--paper);
+      box-shadow: 0 10px 28px var(--shadow);
+    }
+    .education-card .degree {
+      margin-bottom: 8px;
+      font-family: "Source Serif 4", serif;
+      font-size: 25px;
+      font-weight: 600;
+      letter-spacing: -.02em;
+      line-height: 1.2;
+    }
+    .education-card p { margin: 0; color: var(--muted); }
+    .research-group + .research-group { margin-top: 86px; }
+    .group-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: baseline;
+      margin-bottom: 24px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line-strong);
+    }
+    .group-head h2 {
+      margin: 0;
+      font-family: "Source Serif 4", serif;
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 600;
+      letter-spacing: -.035em;
+      line-height: 1.08;
+    }
+    .group-head span { color: var(--muted); font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+    .publication-list { counter-reset: pub; }
+    .publication {
+      counter-increment: pub;
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      gap: 18px;
+      padding: 27px 0 30px;
+      border-bottom: 1px solid var(--line);
+    }
+    .publication::before {
+      content: counter(pub, decimal-leading-zero);
+      padding-top: 4px;
+      color: var(--accent);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+    }
+    .publication h3 {
+      max-width: 850px;
+      margin-bottom: 8px;
+      font-family: "Source Serif 4", serif;
+      font-size: clamp(21px, 2.3vw, 29px);
+      font-weight: 600;
+      letter-spacing: -.018em;
+      line-height: 1.25;
+    }
+    .publication p { margin-bottom: 0; color: var(--muted); }
+    .pub-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px 14px;
+      margin-top: 10px;
+      color: var(--muted);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+    }
+    .pub-meta a { color: var(--accent); text-underline-offset: 3px; }
+    .site-footer { border-top: 1px solid var(--line); }
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 28px;
+      align-items: end;
+      padding: 38px 0 48px;
+    }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 10px 20px; }
+    .footer-links a, .footer-links button {
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+    }
+    .footer-links a:hover, .footer-links button:hover { color: var(--accent); }
+    .footer-note { color: var(--muted); font-family: "IBM Plex Mono", monospace; font-size: 11px; text-align: right; }
+    .copied {
+      position: fixed;
+      left: 50%;
+      bottom: 28px;
+      z-index: 30;
+      padding: 10px 14px;
+      border-radius: 4px;
+      background: var(--ink);
+      color: var(--bg);
+      font-size: 13px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 14px);
+      transition: opacity .2s ease, transform .2s ease;
+      box-shadow: 0 8px 28px var(--shadow);
+    }
+    .copied.show { opacity: 1; transform: translate(-50%, 0); }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    @media (max-width: 780px) {
+      .wrap { width: min(100% - 32px, 680px); }
+      .nav-inner { min-height: 52px; }
+      .nav-links { gap: 16px; }
+      .nav-links a { padding: 15px 0 13px; }
+      .home-hero, .page-head { grid-template-columns: 1fr; gap: 44px; align-items: start; }
+      .home-hero { min-height: auto; padding: 68px 0 52px; }
+      .home-hero h1 { font-size: clamp(52px, 17vw, 76px); }
+      .page-head { padding: 62px 0 46px; }
+      .page-head h1 { font-size: clamp(46px, 14vw, 70px); }
+      .page-lede { font-size: 22px; }
+      .hero-aside, .page-aside { padding: 24px 0 0; border-top: 1px solid var(--line); border-left: 0; }
+      .home-choices { grid-template-columns: 1fr; }
+      .choice, .choice + .choice { min-height: 0; padding: 38px 16px; border-left: 0; }
+      .choice + .choice { border-top: 1px solid var(--line); }
+      .content-grid { grid-template-columns: 1fr; gap: 28px; padding: 54px 0 72px; }
+      .side-index { position: static; display: flex; flex-wrap: wrap; gap: 6px 20px; }
+      .timeline-entry { grid-template-columns: 1fr; gap: 8px; }
+      .education-grid { grid-template-columns: 1fr; }
+      .group-head { grid-template-columns: 1fr; gap: 7px; }
+      .publication { grid-template-columns: 32px minmax(0, 1fr); gap: 10px; }
+      .footer-inner { grid-template-columns: 1fr; align-items: start; }
+      .footer-note { text-align: left; }
+    }
+    @media (max-width: 430px) {
+      .nav-mark { display: none; }
+      .nav-inner { justify-content: flex-start; }
+      .nav-links { width: 100%; justify-content: space-between; }
+      .education-card { padding: 22px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .copied { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav" aria-label="Primary navigation">
+    <div class="wrap nav-inner">
+      <a class="nav-mark" href="#home" data-route="home">FH / Selected work</a>
+      <div class="nav-links">
+        <a href="#home" data-route="home">Home</a>
+        <a href="#work" data-route="work">Work</a>
+        <a href="#research" data-route="research">Research</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <article class="page" id="page-home" data-page="home">
+      <header class="wrap home-hero">
+        <div>
+          <div class="status">San Jose, California</div>
+          <h1>Feilian<br>Huang</h1>
+          <p class="role-line">AI Software Engineer · Independent Researcher</p>
+          <p class="page-lede">I build AI systems for engineering and study how machine intelligence changes knowledge, institutions, and technical practice.</p>
+        </div>
+        <aside class="hero-aside" aria-label="Overview and profiles">
+          <p><strong>Engineering</strong>LLM, retrieval, and agentic workflows for electronic design automation.</p>
+          <p><strong>Research</strong>AI evaluation and governance, with a separate line of work in early American maritime history.</p>
+          <div class="contact-row">
+            <a class="button primary" href="mailto:fffeilian@gmail.com">Email</a>
+            <a class="button" href="https://orcid.org/0009-0006-2214-0233" target="_blank" rel="noopener noreferrer">ORCID</a>
+          </div>
+        </aside>
+      </header>
+      <div class="home-choices" aria-label="Explore the site">
+        <a class="choice" href="#work" data-route="work">
+          <span>01 / Professional practice</span>
+          <h2>Work</h2>
+          <p>Experience across AI-assisted physical design, RTL generation, retrieval systems, video processing, and academic research.</p>
+        </a>
+        <a class="choice" href="#research" data-route="research">
+          <span>02 / Publications &amp; projects</span>
+          <h2>Research</h2>
+          <p>Current work in AI and computing, plus research on American maritime commerce from 1783 to 1815.</p>
+        </a>
+      </div>
+    </article>
+
+    <article class="page" id="page-work" data-page="work" hidden>
+      <header class="wrap page-head">
+        <div>
+          <div class="eyebrow">Professional practice</div>
+          <h1>Work</h1>
+          <p class="page-lede">Engineering experience at the intersection of language models, electronic design automation, retrieval systems, and applied machine learning.</p>
+        </div>
+        <aside class="page-aside">
+          <p>Software Engineer II at Cadence in San Jose, California.</p>
+          <div class="link-row">
+            <a class="button" href="https://www.linkedin.com/in/feilian-huang-a6ba801a1" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+            <a class="button" href="https://github.com/EDGAhab" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          </div>
+        </aside>
+      </header>
+      <div class="wrap content-grid">
+        <nav class="side-index" aria-label="Work page sections">
+          <a href="#work/experience">01 / Experience</a>
+          <a href="#work/education">02 / Education</a>
+        </nav>
+        <div>
+          <section class="content-section" id="experience">
+            <h2 class="section-title">Experience</h2>
+            <div class="timeline">
+              <article class="timeline-entry">
+                <div class="timeline-date">FEB 2025 · PRESENT</div>
+                <div>
+                  <h3>Software Engineer II</h3>
+                  <p class="organization">Cadence · Full-time · San Jose, California · On-site</p>
+                  <ul class="detail-list">
+                    <li>Built PG Agent to automate power-grid routing by translating foundry requirements directly into PSDL with an LLM, reducing more than 1,000 lines of manual add-stripe scripting to near zero.</li>
+                    <li>Developed ChipRTL, combining LLMs, retrieval-augmented generation, and MCP to automate RTL code generation through high-level synthesis.</li>
+                    <li>Developed Innostack, a business-unit-wide AI platform that unifies Cadence tools through natural language, with multi-tool support, a VS Code extension, PG Agent embedded through SKILL, and integrations across teams using SKILL and MCP.</li>
+                  </ul>
+                </div>
+              </article>
+              <article class="timeline-entry">
+                <div class="timeline-date">MAY 2024 · AUG 2024</div>
+                <div>
+                  <h3>Software Developer Intern</h3>
+                  <p class="organization">Cadence · Full-time · San Jose, California · On-site</p>
+                  <ul class="detail-list">
+                    <li>Built a RAG pipeline for the Cadence JedAI LLM. Query decomposition and semantic chunking raised answer correctness on real customer-support questions from 0.46 to 0.71.</li>
+                    <li>Debugged document ingestion, chunking, hierarchical data organization, and insufficient-context failures in the response pipeline.</li>
+                    <li>Built a web application for generative-AI customer support using Python and JavaScript.</li>
+                  </ul>
+                </div>
+              </article>
+              <article class="timeline-entry">
+                <div class="timeline-date">SEP 2021 · MAY 2023</div>
+                <div>
+                  <h3>Research Assistant</h3>
+                  <p class="organization">Georgia Institute of Technology · Full-time · Atlanta, Georgia</p>
+                </div>
+              </article>
+              <article class="timeline-entry">
+                <div class="timeline-date">MAY 2022 · AUG 2022</div>
+                <div>
+                  <h3>Software Developer Intern</h3>
+                  <p class="organization">AirMettle, Inc. · Internship · Houston, Texas</p>
+                  <ul class="detail-list">
+                    <li>Listed as the fourth author on the patent “Partitioning, Processing, and Protecting Media Data.”</li>
+                    <li>Designed and implemented automatic segmentation of uploaded videos into clips for parallel processing with video models on AWS, tracking the workflow in Jira in an Agile environment.</li>
+                    <li>Built a query system for video clips using Python, pandas, and SQL.</li>
+                    <li>Applied computer-vision models to partitioned video for parallel processing.</li>
+                    <li>Supported by National Science Foundation Grant 2135007.</li>
+                  </ul>
+                </div>
+              </article>
+              <article class="timeline-entry">
+                <div class="timeline-date">DATES NOT SHOWN</div>
+                <div>
+                  <h3>Research Assistant</h3>
+                  <p class="organization">The Johns Hopkins University</p>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="content-section" id="education">
+            <h2 class="section-title">Education</h2>
+            <div class="education-grid">
+              <article class="education-card">
+                <div class="degree">M.S. in Computer Science</div>
+                <p>The Johns Hopkins University</p>
+                <p>August 2023 to December 2024</p>
+              </article>
+              <article class="education-card">
+                <div class="degree">B.S., Mathematics &amp; Computer Science</div>
+                <p>Georgia Institute of Technology</p>
+                <p>Double major</p>
+              </article>
+            </div>
+          </section>
+        </div>
+      </div>
+    </article>
+
+    <article class="page" id="page-research" data-page="research" hidden>
+      <header class="wrap page-head">
+        <div>
+          <div class="eyebrow">Publications &amp; active projects</div>
+          <h1>Research</h1>
+          <p class="page-lede">Two distinct research programs: empirical and systems work on AI, and the reconstruction of American maritime activity from 1783 to 1815.</p>
+        </div>
+        <aside class="page-aside">
+          <p>Research outputs include preprints, open datasets, code, and work under journal review.</p>
+          <div class="link-row">
+            <a class="button" href="https://orcid.org/0009-0006-2214-0233" target="_blank" rel="noopener noreferrer">ORCID ↗</a>
+            <a class="button" href="https://github.com/EDGAhab" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          </div>
+        </aside>
+      </header>
+      <div class="wrap content-grid">
+        <nav class="side-index" aria-label="Research page sections">
+          <a href="#research/ai-computing">01 / AI &amp; computing</a>
+          <a href="#research/maritime-history">02 / Maritime history</a>
+        </nav>
+        <div>
+          <section class="research-group" id="ai-computing">
+            <div class="group-head">
+              <h2>AI &amp; computing</h2>
+              <span>2026</span>
+            </div>
+            <div class="publication-list">
+              <article class="publication">
+                <div>
+                  <h3>Unverified Foundations: How AI-Generated Mathematics Builds on Itself</h3>
+                  <p>Data and code archived on Zenodo. arXiv preprint submitted.</p>
+                  <div class="pub-meta"><a href="https://doi.org/10.5281/zenodo.23232471" target="_blank" rel="noopener noreferrer">DOI 10.5281/zenodo.23232471 ↗</a></div>
+                </div>
+              </article>
+              <article class="publication">
+                <div>
+                  <h3>The First AI-Saturated Election: Disclosure, Detection, and the Regulatory Limits of Generative Political Persuasion</h3>
+                  <p>With Yujia Liu. Submitted to <em>Election Law Journal</em>.</p>
+                  <div class="pub-meta"><a href="https://doi.org/10.2139/ssrn.7520300" target="_blank" rel="noopener noreferrer">SSRN 7520300 · DOI 10.2139/ssrn.7520300 ↗</a><a href="assets/ai-saturated-election.pdf" target="_blank" rel="noopener">PDF ↗</a></div>
+                </div>
+              </article>
+              <article class="publication">
+                <div>
+                  <h3>Client-Side Measurement of Free-Tier LLM Inference</h3>
+                  <p>Submitted to SIGMETRICS 2027. Dataset archived on Zenodo.</p>
+                  <div class="pub-meta"><a href="https://doi.org/10.5281/zenodo.23053564" target="_blank" rel="noopener noreferrer">Dataset DOI 10.5281/zenodo.23053564 ↗</a></div>
+                </div>
+              </article>
+              <article class="publication">
+                <div>
+                  <h3>Pushdown Is Not Free</h3>
+                  <p>Research on the cost of pushing LLM data-cleaning operations toward storage.</p>
+                  <div class="pub-meta"><a href="https://doi.org/10.5281/zenodo.22964229" target="_blank" rel="noopener noreferrer">DOI 10.5281/zenodo.22964229 ↗</a><a href="https://github.com/EDGAhab/llm-cleaning-pushdown" target="_blank" rel="noopener noreferrer">Code ↗</a></div>
+                </div>
+              </article>
+              <article class="publication">
+                <div>
+                  <h3>The Review Lottery</h3>
+                  <p>Preprint on peer-review noise.</p>
+                  <div class="pub-meta"><a href="https://arxiv.org/html/2610.06591" target="_blank" rel="noopener noreferrer">arXiv 2610.06591 ↗</a></div>
+                </div>
+              </article>
+              <article class="publication">
+                <div>
+                  <h3>SpecRead</h3>
+                  <p>Hardware specification comprehension benchmark. In progress.</p>
+                  <div class="pub-meta"><span>ACTIVE PROJECT</span></div>
+                </div>
+              </article>
+              <article class="publication">
+                <div>
+                  <h3>Verification Debt</h3>
+                  <p>Open-source tracking of the backlog between AI-generated mathematical results and independent human verification. In progress.</p>
+                  <div class="pub-meta"><a href="https://github.com/EDGAhab/verification-debt" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="research-group" id="maritime-history">
+            <div class="group-head">
+              <h2>Early American maritime history</h2>
+              <span>1783–1815</span>
+            </div>
+            <div class="publication-list">
+              <article class="publication">
+                <div>
+                  <h3>From Wartime Service to Canton: Reconstructing Early American Voyages to China from Digitized Newspapers, 1784–1800</h3>
+                  <p>With Yujia Liu. Submitted to the <em>Journal of the Early Republic</em>.</p>
+                  <div class="pub-meta"><a href="https://doi.org/10.2139/ssrn.7568639" target="_blank" rel="noopener noreferrer">SSRN 7568639 · DOI 10.2139/ssrn.7568639 ↗</a></div>
+                </div>
+              </article>
+              <article class="publication">
+                <div>
+                  <h3>Yankees in the Sound: American Shipping through the Danish Straits, 1783–1815</h3>
+                  <p>With Yujia Liu. Submitted to <em>International Journal of Maritime History</em>.</p>
+                  <div class="pub-meta"><a href="https://doi.org/10.2139/ssrn.7568619" target="_blank" rel="noopener noreferrer">SSRN 7568619 · DOI 10.2139/ssrn.7568619 ↗</a></div>
+                </div>
+              </article>
+              <article class="publication">
+                <div>
+                  <h3>The Neutral-Carrier Recovery, 1809–1811: Cotton, Dyewoods, and the Reorientation of the American Baltic Trade</h3>
+                  <p>With Yujia Liu. Submitted to <em>Scandinavian Economic History Review</em>.</p>
+                  <div class="pub-meta"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7568640" target="_blank" rel="noopener noreferrer">SSRN 7568640 ↗</a></div>
+                </div>
+              </article>
+            </div>
+          </section>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-links">
+        <a href="mailto:fffeilian@gmail.com">fffeilian@gmail.com</a>
+        <button type="button" id="copyEmail">Copy email</button>
+        <a href="https://www.linkedin.com/in/feilian-huang-a6ba801a1" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/EDGAhab" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://orcid.org/0009-0006-2214-0233" target="_blank" rel="noopener noreferrer">ORCID</a>
+      </div>
+      <div class="footer-note">Feilian Huang · San Jose, California</div>
+    </div>
+  </footer>
+  <div class="copied" id="copied" role="status" aria-live="polite">Email copied</div>
+
+  <script>
+    (function () {
+      var pages = document.querySelectorAll('[data-page]');
+      var routeLinks = document.querySelectorAll('[data-route]');
+      var copyButton = document.getElementById('copyEmail');
+      var toast = document.getElementById('copied');
+      var timer;
+
+      function getRoute() {
+        var route = window.location.hash.replace('#', '').split('/')[0];
+        return route === 'work' || route === 'research' ? route : 'home';
+      }
+
+      function renderRoute() {
+        var route = getRoute();
+        pages.forEach(function (page) {
+          page.hidden = page.getAttribute('data-page') !== route;
+        });
+        routeLinks.forEach(function (link) {
+          if (link.closest('.nav-links')) {
+            if (link.getAttribute('data-route') === route) {
+              link.setAttribute('aria-current', 'page');
+            } else {
+              link.removeAttribute('aria-current');
+            }
+          }
+        });
+        document.title = route === 'home' ? 'Feilian Huang' : (route.charAt(0).toUpperCase() + route.slice(1) + ' · Feilian Huang');
+        var sectionId = window.location.hash.replace('#', '').split('/')[1];
+        window.setTimeout(function () {
+          if (sectionId) {
+            var target = document.getElementById(sectionId);
+            if (target) { target.scrollIntoView({ block: 'start' }); }
+          } else {
+            window.scrollTo(0, 0);
+          }
+        }, 0);
+      }
+
+      window.addEventListener('hashchange', renderRoute);
+      renderRoute();
+
+      copyButton.addEventListener('click', function () {
+        var email = 'fffeilian@gmail.com';
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(email).then(showToast, fallback);
+        } else {
+          fallback();
+        }
+        function fallback() {
+          var input = document.createElement('textarea');
+          input.value = email;
+          input.setAttribute('readonly', '');
+          input.style.position = 'fixed';
+          input.style.opacity = '0';
+          document.body.appendChild(input);
+          input.select();
+          try { document.execCommand('copy'); } catch (e) {}
+          document.body.removeChild(input);
+          showToast();
+        }
+        function showToast() {
+          clearTimeout(timer);
+          toast.classList.add('show');
+          copyButton.textContent = 'Copied';
+          timer = setTimeout(function () {
+            toast.classList.remove('show');
+            copyButton.textContent = 'Copy email';
+          }, 1800);
+        }
+      });
+    }());
+  </script>
+</body>
+</html>
